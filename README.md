@@ -1,4 +1,4 @@
-# 💻 Azure AI Roadmap - Frontend (React)
+# 💻 Arquitecto Azure AI - Frontend
 
 Este es el cliente web desarrollado en **React + Vite** para el asistente técnico de Azure. La interfaz permite una interacción fluida con el sistema RAG (Retrieval-Augmented Generation) del backend, ofreciendo una experiencia de chat moderna, con soporte para Markdown y visualización de fuentes bibliográficas en tiempo real.
 
