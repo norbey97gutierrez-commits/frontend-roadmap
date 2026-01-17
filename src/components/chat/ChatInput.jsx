@@ -4,9 +4,19 @@ const ChatInput = ({ onSend, loading }) => {
   const [text, setText] = useState("");
 
   const handleSubmit = () => {
-    if (text.trim() && !loading) {
-      onSend(text);
-      setText("");
+    if (!onSend || typeof onSend !== 'function') {
+      console.error("onSend no es una función válida");
+      return;
+    }
+    
+    const trimmedText = text.trim();
+    if (trimmedText && !loading) {
+      try {
+        onSend(trimmedText);
+        setText("");
+      } catch (error) {
+        console.error("Error al enviar mensaje:", error);
+      }
     }
   };
 
@@ -16,7 +26,7 @@ const ChatInput = ({ onSend, loading }) => {
         <input
           autoFocus
           className="w-full bg-gray-50 border border-gray-200 rounded-2xl pl-6 pr-14 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-[15px] placeholder:text-gray-400 shadow-sm"
-          placeholder="Ask about VNets, SQL, or scaling..."
+          placeholder="Pregunte sobre VNets, SQL o escalabilidad..."
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
@@ -34,7 +44,7 @@ const ChatInput = ({ onSend, loading }) => {
         </button>
       </div>
       <p className="text-center text-[10px] text-gray-400 mt-4 tracking-tight">
-        AI can make mistakes. Verify important technical info with Azure documentation.
+        La IA puede cometer errores. Verifique información técnica importante con la documentación de Azure.
       </p>
     </footer>
   );

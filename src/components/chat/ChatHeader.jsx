@@ -3,8 +3,9 @@ import React from 'react';
 /**
  * Componente de encabezado para la interfaz de chat.
  * @param {boolean} loading - Indica si la IA está procesando una respuesta.
+ * @param {function} onLogout - Función para cerrar sesión.
  */
-const ChatHeader = ({ loading }) => {
+const ChatHeader = ({ loading, onLogout }) => {
   return (
     <header className="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-md border-b border-gray-100">
       {/* Lado Izquierdo: Logo y Título */}
@@ -20,20 +21,30 @@ const ChatHeader = ({ loading }) => {
         </div>
       </div>
 
-      {/* Lado Derecho: Indicador de Estado */}
-      <div className="flex items-center gap-2 px-3 py-1 bg-gray-50 rounded-full border border-gray-100 transition-all duration-300">
-        <div className={`relative flex h-2 w-2`}>
-          {/* Efecto de pulso cuando está cargando */}
-          {loading && (
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-          )}
-          <span className={`relative inline-flex rounded-full h-2 w-2 ${
-            loading ? 'bg-amber-500' : 'bg-emerald-500'
-          }`}></span>
+      {/* Lado Derecho: Indicador de Estado y Logout */}
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 px-3 py-1 bg-gray-50 rounded-full border border-gray-100 transition-all duration-300">
+          <div className={`relative flex h-2 w-2`}>
+            {/* Efecto de pulso cuando está cargando */}
+            {loading && (
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            )}
+            <span className={`relative inline-flex rounded-full h-2 w-2 ${
+              loading ? 'bg-amber-500' : 'bg-emerald-500'
+            }`}></span>
+          </div>
+          <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+            {loading ? 'Pensando...' : 'Listo'}
+          </span>
         </div>
-        <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider">
-          {loading ? 'Pensando...' : 'Listo'}
-        </span>
+        {onLogout && (
+          <button
+            onClick={onLogout}
+            className="px-3 py-1 text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+          >
+            Cerrar sesión
+          </button>
+        )}
       </div>
     </header>
   );
